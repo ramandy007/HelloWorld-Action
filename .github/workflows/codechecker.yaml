@@ -1,0 +1,22 @@
+name: CodeChecker Analysis
+
+on: [push, pull_request]
+
+jobs:
+  code-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Prepare build
+      run: |
+        mkdir -pv Build
+        cd Build
+        cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+    - name: Run CodeChecker analysis
+      uses: whisperity/codechecker-analysis-action@v1
+      with:
+        logfile: Build/compile_commands.json
