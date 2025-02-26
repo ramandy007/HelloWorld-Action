@@ -1,0 +1,17 @@
+{
+  "analyzer": {
+    "gcc": {
+      "checkers": [
+        "core",
+        "deadcode",
+        "security
+      ]
+    },
+    "clangsa": {
+      "checkers": [
+        "core",
+        "deadcode"
+      ]
+    }
+  }
+}
