@@ -12,15 +12,17 @@ jobs:
 
     - name: Prepare build
       run: |
+        sudo apt-get remove --purge man-db
         sudo apt update && sudo apt install cppcheck
         mkdir -pv Build
         cd Build
         cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
     - name: Run CodeChecker analysis
+      id:  codechecker
       uses: whisperity/codechecker-analysis-action@v1
       with:
-        logfile: Build/compile_commands.json
+        logfile: ${{ github.workspace }}/Build/compile_commands.json
 
     - name: upload results to CI
       uses: actions/upload-artifact@v4
